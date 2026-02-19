@@ -5,7 +5,7 @@
    Tutorial 11
    Review Assignment
 
-   Author: 
+   Author: Michael Santos
    Date:   
 
    Global Variables
@@ -46,8 +46,33 @@
       the numbers, blocks, and rating parameters.
 	
 */
+window.onload = init;
 
+var allCells
 
+function init() {
+   document.getElementById("puzzleTitle").innerHTML = "Puzzle 1";
+   drawPuzzle(hitori1Number, hitori1Blocks, hitori1Rating);
+   var puzzleButtons = document.getElementsByClassName("puzzles");
+   for (var i = 0; i < puzzleButtons.length; i++) {
+   puzzleButtons[i].onclick = swapPuzzle;
+   }
+
+ setupPuzzle();
+
+    // Add an event handler for the mouseup event
+   document.addEventListener("mouseup", endBackground);
+
+   //Add an event listener to the Show solution button
+   document.getElementById("solve").addEventListener("click",
+      function() {
+         //Remove the inline backgroundColor style from each cell
+         for (var i = 0; i < puzzleCells.length; i++) {
+            puzzleCells[i].style.backgroundColor = "";
+         }
+      }
+   );   
+}
 
 
 

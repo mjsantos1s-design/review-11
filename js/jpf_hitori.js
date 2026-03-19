@@ -46,11 +46,11 @@
       the numbers, blocks, and rating parameters.
 	
 */
-window.onload = init;
+window.onload = startUp;
 
 var allCells
 
-function init() {
+function startUp() {
    document.getElementById("puzzleTitle").innerHTML = "Puzzle 1";
    drawHitori(hitori1Number, hitori1Blocks, hitori1Rating);
    var puzzleButtons = document.getElementsByClassName("puzzles");
@@ -60,21 +60,14 @@ function init() {
 
  setupPuzzle();
 
-    // Add an event handler for the mouseup event
-   document.addEventListener("mouseup", endBackground);
+   // Add an event handler for the findErrors
+   document.addEventListener(findErrors, "click");
 
    //Add an event listener to the Show solution button
-   document.getElementById("solve").addEventListener("click",
-      function() {
-         //Remove the inline backgroundColor style from each cell
-         for (var i = 0; i < puzzleCells.length; i++) {
-            puzzleCells[i].style.backgroundColor = "";
-         }
-      }
-   );   
+   document.addEventListener(showSolution, "click");  
 }
 
-function swapPuzzle(e) {
+function switchPuzzle(e) {
    if (confirm("You will lose all fo your work on the puzzle! Continue?")) {
    var puzzleID = e.target.id;
    var puzzleTitle = e.target.value;
@@ -98,7 +91,9 @@ function swapPuzzle(e) {
    setupPuzzle();
 }
 }
+
 function setupPuzzle() {
+   querySelectorAll()
    /* Match all of the data cells in the puzzle */
    puzzleCells = document.querySelectorAll("table#hanjieGrid td");
 
@@ -171,7 +166,7 @@ function setBackground(e) {
 
    //Create an event listener to highlight incorrect cells
    document.getElementById("peek").addEventListener("click",
-      function() {
+      findErrors(
          //Display incorrect white cells in pink
          for (var i = 0; i < filled.length; i++) {
             if (filled[i].style.backgroundColor === "rgb(255, 255, 255)"){
@@ -197,7 +192,7 @@ function setBackground(e) {
                   }
                }
             }, 500);
-      }
+    )
    );
 
 

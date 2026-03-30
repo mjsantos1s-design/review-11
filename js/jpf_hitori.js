@@ -46,9 +46,9 @@
       the numbers, blocks, and rating parameters.
 	
 */
-window.onload = startUp;
+var allCells;
 
-var allCells
+window.onload = startUp;
 
 function startUp() {
    document.getElementById("puzzleTitle").innerHTML = "Puzzle 1";
@@ -70,21 +70,20 @@ function startUp() {
 function switchPuzzle(e) {
    if (confirm("You will lose all fo your work on the puzzle! Continue?")) {
    var puzzleID = e.target.id;
-   var puzzleTitle = e.target.value;
-   document.getElementById("puzzleTitle").innerHTML = puzzleTitle;
+   document.getElementById("puzzleTitle").innerHTML = e.target.value;
 
    switch (puzzleID) {
       case "puzzle1":
          document.getElementById("puzzle").innerHTML =
-         drawPuzzle(puzzle1Hint, puzzle1Rating, puzzle1);
+         drawHitori(hitori1Number, hitori1Blocks, hitori1Rating);
          break;
       case "puzzle2":
          document.getElementById("puzzle").innerHTML =
-         drawPuzzle(puzzle2Hint, puzzle2Rating, puzzle2);
+         drawHitori(hitori2Number, hitori2Blocks, hitori2Rating);
          break;
       case "puzzle3":
          document.getElementById("puzzle").innerHTML =
-         drawPuzzle(puzzle3Hint, puzzle3Rating, puzzle3);
+         drawHitori(hitori3Number, hitori3Blocks, hitori3Rating);
          break;
    }
 
@@ -103,9 +102,35 @@ function setupPuzzle() {
       //set the cell background color in response to the mousedown event
       puzzleCells[i].onmousedown = setBackground;
       // Use a pencil image as the cursor
-      puzzleCells[i].style.cursor = "url(../png/jpf_pencil.png), pointer";
+      puzzleCells[i].style.cursor = "url(../png/jpf_pencil.png), pointer";mousedown() {
+      if (e.shiftKey) {
+         cellBackground = "rgb(0, 0, 0), border-radius: 0";
+      } else if (e.altKey) {
+         cellBackground = "rgb(255, 255, 255), border-radius: 50%";
+      } else {
+         cellBackground = "rgb(101, 101, 101), border-radius: 50%";  
+      }
+      document.getElementById("hitoriGrid").addEventListener("mouseup", 
+      function() {
+   var cursorType;
+   // Set the background based on the keyboard key
+   if (e.shiftKey) {
+      cursorType = "url(../png/jpf_eraser.png), alias";
+   } else if (e.altKey) {
+      cursorType = "url(../png/jpf_block.png), cell";
+   } else {
+      cursorType = "url(../png/jpf_circle.png), pointer";      
+   }
+checkSolution();
+});
+   }
    }
 
+   findErrors() {
+      for (var i = 0; i < puzzleCells.length; i++) {
+         aalCells
+      }
+   }
    //Check the puzzle solution
    document.getElementById("hitoriGrid").addEventListener("mouseup", 
       function() {
@@ -125,36 +150,8 @@ function setupPuzzle() {
    }
 )
 
-   //Create object collections of the filled and empty cells
-   var filled = document.querySelectorAll("table#hajieGrid td.filled");
-   var empty = document.querySelectorAll("table#hajieGrid td.empty");
-
 }
 
-function setBackground(e) {
-   var cursorType;
-   // Set the background based on the keyboard key
-   if (e.shiftKey) {
-      cellBackground = "rgb(233, 207, 29)";
-      cursorType = "url(../png/jpf_eraser.png), alias";
-   } else if (e.altKey) {
-      cellBackground = "rgb(255, 255, 255)";
-      cursorType = "url(../png/jpf_block.png), cell";
-   } else {
-      cellBackground = "rgb(101, 101, 101)";
-      cursorType = "url(../png/jpf_circle.png), pointer";      
-   }
-   e.target.style.backgroundColor = cellBackground;
-
-   //Create an event listener for every puzzle cell
-   for (var i = 0; i < puzzleCells.length; i++) {
-      puzzleCells[i].addEventListener("mouseenter", extendBackground);
-      puzzleCells[i].style.cursor = cursorType;
-   }
-
-      //Prevent the default action of selecting table text
-   e.preventDefault();
-}
 
 
 
